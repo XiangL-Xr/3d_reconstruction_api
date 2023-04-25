@@ -1,0 +1,6 @@
+/data
+/Final_out
+/.idea/
+*/__pycache__
+*.pyc
+/api_test_v0.2.py

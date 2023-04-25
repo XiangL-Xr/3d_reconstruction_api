@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小场景多视图重建页面</title>
+    <style type="text/css">
+        p input{
+            width: 170px;
+            margin-right: 70px;
+        }
+        p input[type="text"]{
+            width: 160px;
+        }
+        a {
+            text-decoration: none;
+            color: #f30c0c;
+        }
+    </style>
+</head>
+
+<body>
+    <p>-----------------------------------------------------------------------------------------------------------------------------------------</p>
+    <label style="border-bottom: blue 4px double;"> <b> >> 小场景多视图重建接口</b></label>
+    <br>
+    <br>
+    <div>
+    <pre>
+    数据说明：
+        
+        -1- 同一商品或场景的不同视角照片，数量应在100-200张左右；
+        -2- 相邻两个视角照片之间的水平角度差不超过20度；
+        -3- 若采用环拍方式，应采集不同的仰角或俯角，垂直角度差不超过30度，环拍的圈数不少于2圈；
+        -4- 多视角照片的分辨率不低于1024*1024；
+        -5- 对所有照片进行抠图处理，并保存单通道mask，mask文件名应与图片名一一对应。
+
+    参数说明：
+    
+        -- 数据下载路径: 必填，用于商品或场景重建的多视角图片数据，格式为.zip压缩包；
+                         该压缩包内必须包含images与masks两个子文件夹，分别存放三通道RGB图片与抠图处理后的单通道黑白mask。
+    
+        -- 初始重建阶段: 选填，默认为空，表示自动化三维重建过程一键完成；
+                         若重建过程中断，则通过指定起始重建阶段，重启3D重建过程。
+                
+    </pre>
+    </div>
+
+    <div>
+        <script>
+            function m_submit(){
+                alert('提交成功,自动化重建过程可能花费6~7小时, 请耐心等待...')
+                return True
+            }
+        </script>
+        <form action="/api/auto_reconstruction" method="post" enctype="multipart/form-data">
+
+            <p>重建任务id&nbsp&nbsp&nbsp&nbsp <input type="text" size="20" name="uuid"/> ## 必填，每次创建新的重建任务时随机分配</p>
+            <p>数据下载路径 <input type="text" size="20" name="source_path"/> ## 必填，请填写多视图数据在FTP的绝对路径,文件格式为.zip</p>
+            <p>初始重建阶段 <input type="text" size="20" name="init_state"/>  ## 选填，可选项：[train, extract, texture], 默认为空</p>
+            <input type="submit" value="开始重建" style="margin-top:15px;">
+            <pre><a>注：重建开始后可关闭此页面，重建过程大约需要花费6-7小时左右，请耐心等待...</a></pre>
+            <br>
+            <p>-----------------------------------------------------------------------------------------------------------------------------------------</p>
+     
+        </form>
+    </div>
+
+ 
+</body>
+</html>
